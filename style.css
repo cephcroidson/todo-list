@@ -191,9 +191,11 @@ li.completed span {
     }
 
     .input-area input,
+    .input-area select,
     .input-area button {
         width: 100%;
-    }
+       box-sizing: border-box;
+     }
 
     .search-area input {
         box-sizing: border-box;
@@ -280,4 +282,35 @@ li.completed span {
 
 .dark-mode .empty-state {
     color: #aaa;
+}
+#taskPriority {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background: white;
+}
+
+.task-priority {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.priority-high {
+    font-weight: bold;
+}
+
+.priority-medium {
+    font-weight: normal;
+}
+
+.priority-low {
+    font-weight: normal;
+}
+
+.dark-mode #taskPriority {
+    background: #2b2b2b;
+    color: #ffffff;
+    border-color: #555;
 }

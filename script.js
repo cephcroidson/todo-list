@@ -15,6 +15,7 @@ const emptyState = document.getElementById("emptyState");
 const emptyIcon = document.getElementById("emptyIcon");
 const emptyTitle = document.getElementById("emptyTitle");
 const emptyMessage = document.getElementById("emptyMessage");
+const taskPriority = document.getElementById("taskPriority");
 const searchInput = document.getElementById("searchInput");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -88,7 +89,20 @@ function renderTasks() {
 
             taskContent.appendChild(date);
         }
+        if (task.priority) {
+    const priority = document.createElement("small");
 
+    const priorityLabels = {
+        low: "🟢 Low",
+        medium: "🟡 Medium",
+        high: "🔴 High"
+    };
+
+    priority.textContent = priorityLabels[task.priority] || "🟡 Medium";
+    priority.classList.add("task-priority", `priority-${task.priority}`);
+
+    taskContent.appendChild(priority);
+}
         span.addEventListener("click", () => {
             tasks[index].completed = !tasks[index].completed;
 
@@ -117,7 +131,18 @@ function renderTasks() {
             }
 
             tasks[index].text = updatedText;
+            const newPriority = prompt(
+    "Priority: low, medium, or high",
+    task.priority || "medium"
+);
 
+if (newPriority !== null) {
+    const priority = newPriority.trim().toLowerCase();
+
+    if (["low", "medium", "high"].includes(priority)) {
+        tasks[index].priority = priority;
+    }
+}
             saveTasks();
             renderTasks();
         });
@@ -165,6 +190,7 @@ function addTask() {
     tasks.push({
         text: text,
         date: taskDate.value,
+        priority: taskPriority.value,
         completed: false
     });
 
@@ -173,6 +199,7 @@ function addTask() {
 
     taskInput.value = "";
     taskDate.value = "";
+    taskPriority.value = "medium";
     taskInput.focus();
 }
 
