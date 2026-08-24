@@ -1,4 +1,5 @@
 const taskInput = document.getElementById("taskInput");
+const taskDate = document.getElementById("taskDate");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
 const taskCounter = document.getElementById("taskCounter");
@@ -37,16 +38,21 @@ function renderTasks() {
         if (task.completed) {
             li.classList.add("completed");
         }
+const taskContent = document.createElement("div");
 
-        const span = document.createElement("span");
-        span.textContent = task.text;
+const span = document.createElement("span");
+span.textContent = task.text;
 
-        span.addEventListener("click", () => {
-            tasks[index].completed = !tasks[index].completed;
+taskContent.appendChild(span);
 
-            saveTasks();
-            renderTasks();
-        });
+if (task.date) {
+    const date = document.createElement("small");
+    date.textContent = `Due: ${task.date}`;
+    date.classList.add("task-date");
+
+    taskContent.appendChild(date);
+}
+
 
         const actions = document.createElement("div");
         actions.classList.add("actions");
@@ -87,8 +93,8 @@ function renderTasks() {
 
         actions.appendChild(editButton);
         actions.appendChild(deleteButton);
+        li.appendChild(taskContent);
 
-        li.appendChild(span);
         li.appendChild(actions);
 
         taskList.appendChild(li);
@@ -109,6 +115,7 @@ function addTask() {
 
     tasks.push({
         text: text,
+        date: taskDate.value,
         completed: false
     });
 
@@ -116,6 +123,7 @@ function addTask() {
     renderTasks();
 
     taskInput.value = "";
+    taskDate.value = "";
     taskInput.focus();
 }
 
