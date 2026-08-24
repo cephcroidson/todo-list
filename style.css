@@ -221,3 +221,39 @@ li.completed span {
         font-size: 18px;
     }
 }
+#themeToggle {
+    display: block;
+    margin: 15px auto;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dark-mode {
+    background: #121212;
+    color: #f5f5f5;
+}
+
+.dark-mode .container {
+    background: #1e1e1e;
+}
+
+.dark-mode input {
+    background: #2b2b2b;
+    color: #ffffff;
+    border-color: #555;
+}
+
+.dark-mode #taskList li {
+    background: #2b2b2b;
+    border-color: #444;
+}
+
+.dark-mode .task-date {
+    color: #aaa;
+}
+
+.dark-mode .statistics {
+    border-color: #444;
+}
