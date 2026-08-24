@@ -81,3 +81,9 @@ li.completed span {
 .delete:hover {
     background: #c9302c;
 }
+#taskCounter {
+    margin-top: 15px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}

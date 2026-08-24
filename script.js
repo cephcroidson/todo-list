@@ -1,7 +1,8 @@
+
 const taskInput = document.getElementById("taskInput");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
-
+const taskCounter = document.getElementById("taskCounter");
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function saveTasks() {
@@ -42,7 +43,13 @@ function renderTasks() {
 
         taskList.appendChild(li);
     });
+
+const remainingTasks = tasks.filter(task => !task.completed).length;
+
+taskCounter.textContent =
+    `${remainingTasks} ${remainingTasks === 1 ? "task" : "tasks"} remaining`;
 }
+
 
 function addTask() {
     const text = taskInput.value.trim();
