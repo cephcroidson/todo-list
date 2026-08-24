@@ -11,7 +11,10 @@ const allFilter = document.getElementById("allFilter");
 const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
 const clearCompleted = document.getElementById("clearCompleted");
-
+const emptyState = document.getElementById("emptyState");
+const emptyIcon = document.getElementById("emptyIcon");
+const emptyTitle = document.getElementById("emptyTitle");
+const emptyMessage = document.getElementById("emptyMessage");
 const searchInput = document.getElementById("searchInput");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -25,7 +28,7 @@ function saveTasks() {
 
 function renderTasks() {
     taskList.innerHTML = "";
-
+   emptyState.style.display = "none";
     let filteredTasks = tasks;
 
     if (currentFilter === "active") {
@@ -41,7 +44,27 @@ function renderTasks() {
             task.text.toLowerCase().includes(searchText.toLowerCase())
         );
     }
+    if (filteredTasks.length === 0) {
+    emptyState.style.display = "block";
 
+    if (tasks.length === 0) {
+        emptyIcon.textContent = "📋";
+        emptyTitle.textContent = "No tasks yet";
+        emptyMessage.textContent = "Add a task above to get started.";
+    } else if (searchText !== "") {
+        emptyIcon.textContent = "🔍";
+        emptyTitle.textContent = "No tasks found";
+        emptyMessage.textContent = "Try a different search term.";
+    } else if (currentFilter === "active") {
+        emptyIcon.textContent = "🎉";
+        emptyTitle.textContent = "No active tasks";
+        emptyMessage.textContent = "You've completed all your tasks!";
+    } else if (currentFilter === "completed") {
+        emptyIcon.textContent = "✅";
+        emptyTitle.textContent = "No completed tasks";
+        emptyMessage.textContent = "Completed tasks will appear here.";
+    }
+}
     filteredTasks.forEach((task) => {
         const index = tasks.indexOf(task);
 

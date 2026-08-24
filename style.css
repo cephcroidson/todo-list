@@ -257,3 +257,27 @@ li.completed span {
 .dark-mode .statistics {
     border-color: #444;
 }
+.empty-state {
+    display: none;
+    text-align: center;
+    padding: 30px 15px;
+    color: #777;
+}
+
+.empty-state div {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.empty-state h3 {
+    margin: 5px 0;
+}
+
+.empty-state p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.dark-mode .empty-state {
+    color: #aaa;
+}
