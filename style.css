@@ -139,3 +139,14 @@ li.completed span {
     border-radius: 5px;
     font-size: 14px;
 }
+.search-area {
+    margin-top: 15px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}

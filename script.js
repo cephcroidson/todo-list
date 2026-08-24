@@ -9,9 +9,12 @@ const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
 const clearCompleted = document.getElementById("clearCompleted");
 
+const searchInput = document.getElementById("searchInput");
+
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let currentFilter = "all";
+let searchText = "";
 
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -23,11 +26,17 @@ function renderTasks() {
     let filteredTasks = tasks;
 
     if (currentFilter === "active") {
-        filteredTasks = tasks.filter(task => !task.completed);
+        filteredTasks = filteredTasks.filter(task => !task.completed);
     }
 
     if (currentFilter === "completed") {
-        filteredTasks = tasks.filter(task => task.completed);
+        filteredTasks = filteredTasks.filter(task => task.completed);
+    }
+
+    if (searchText !== "") {
+        filteredTasks = filteredTasks.filter(task =>
+            task.text.toLowerCase().includes(searchText.toLowerCase())
+        );
     }
 
     filteredTasks.forEach((task) => {
@@ -38,21 +47,28 @@ function renderTasks() {
         if (task.completed) {
             li.classList.add("completed");
         }
-const taskContent = document.createElement("div");
 
-const span = document.createElement("span");
-span.textContent = task.text;
+        const taskContent = document.createElement("div");
 
-taskContent.appendChild(span);
+        const span = document.createElement("span");
+        span.textContent = task.text;
 
-if (task.date) {
-    const date = document.createElement("small");
-    date.textContent = `Due: ${task.date}`;
-    date.classList.add("task-date");
+        taskContent.appendChild(span);
 
-    taskContent.appendChild(date);
-}
+        if (task.date) {
+            const date = document.createElement("small");
+            date.textContent = `Due: ${task.date}`;
+            date.classList.add("task-date");
 
+            taskContent.appendChild(date);
+        }
+
+        span.addEventListener("click", () => {
+            tasks[index].completed = !tasks[index].completed;
+
+            saveTasks();
+            renderTasks();
+        });
 
         const actions = document.createElement("div");
         actions.classList.add("actions");
@@ -93,8 +109,8 @@ if (task.date) {
 
         actions.appendChild(editButton);
         actions.appendChild(deleteButton);
-        li.appendChild(taskContent);
 
+        li.appendChild(taskContent);
         li.appendChild(actions);
 
         taskList.appendChild(li);
@@ -154,6 +170,12 @@ clearCompleted.addEventListener("click", () => {
     tasks = tasks.filter(task => !task.completed);
 
     saveTasks();
+    renderTasks();
+});
+
+searchInput.addEventListener("input", () => {
+    searchText = searchInput.value.trim();
+
     renderTasks();
 });
 
