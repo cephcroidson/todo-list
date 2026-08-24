@@ -6,7 +6,7 @@ const taskCounter = document.getElementById("taskCounter");
 const allFilter = document.getElementById("allFilter");
 const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
-
+const clearCompleted = document.getElementById("clearCompleted");
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let currentFilter = "all";
@@ -112,5 +112,10 @@ completedFilter.addEventListener("click", () => {
     currentFilter = "completed";
     renderTasks();
 });
+clearCompleted.addEventListener("click", () => {
+    tasks = tasks.filter(task => !task.completed);
 
+    saveTasks();
+    renderTasks();
+});
 renderTasks();
