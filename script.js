@@ -7,6 +7,7 @@ const allFilter = document.getElementById("allFilter");
 const activeFilter = document.getElementById("activeFilter");
 const completedFilter = document.getElementById("completedFilter");
 const clearCompleted = document.getElementById("clearCompleted");
+
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let currentFilter = "all";
@@ -47,8 +48,33 @@ function renderTasks() {
             renderTasks();
         });
 
-        const deleteButton = document.createElement("button");
+        const actions = document.createElement("div");
+        actions.classList.add("actions");
 
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.classList.add("edit");
+
+        editButton.addEventListener("click", () => {
+            const newText = prompt("Edit your task:", task.text);
+
+            if (newText === null) {
+                return;
+            }
+
+            const updatedText = newText.trim();
+
+            if (updatedText === "") {
+                return;
+            }
+
+            tasks[index].text = updatedText;
+
+            saveTasks();
+            renderTasks();
+        });
+
+        const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.classList.add("delete");
 
@@ -59,8 +85,11 @@ function renderTasks() {
             renderTasks();
         });
 
+        actions.appendChild(editButton);
+        actions.appendChild(deleteButton);
+
         li.appendChild(span);
-        li.appendChild(deleteButton);
+        li.appendChild(actions);
 
         taskList.appendChild(li);
     });
@@ -112,10 +141,12 @@ completedFilter.addEventListener("click", () => {
     currentFilter = "completed";
     renderTasks();
 });
+
 clearCompleted.addEventListener("click", () => {
     tasks = tasks.filter(task => !task.completed);
 
     saveTasks();
     renderTasks();
 });
+
 renderTasks();

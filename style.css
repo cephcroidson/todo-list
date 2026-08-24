@@ -113,3 +113,16 @@ li.completed span {
 #clearCompleted:hover {
     background: #c9302c;
 }
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit {
+    background: #f0ad4e;
+    padding: 7px 10px;
+}
+
+.edit:hover {
+    background: #ec971f;
+}
