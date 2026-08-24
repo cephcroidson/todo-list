@@ -3,6 +3,9 @@ const taskDate = document.getElementById("taskDate");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
 const taskCounter = document.getElementById("taskCounter");
+const totalTasks = document.getElementById("totalTasks");
+const activeTasks = document.getElementById("activeTasks");
+const completedTasks = document.getElementById("completedTasks");
 
 const allFilter = document.getElementById("allFilter");
 const activeFilter = document.getElementById("activeFilter");
@@ -120,6 +123,13 @@ function renderTasks() {
 
     taskCounter.textContent =
         `${remainingTasks} ${remainingTasks === 1 ? "task" : "tasks"} remaining`;
+      const total = tasks.length;
+const active = tasks.filter(task => !task.completed).length;
+const completed = tasks.filter(task => task.completed).length;
+
+totalTasks.textContent = total;
+activeTasks.textContent = active;
+completedTasks.textContent = completed;
 }
 
 function addTask() {
